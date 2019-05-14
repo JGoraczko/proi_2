@@ -1,6 +1,9 @@
 #include <iostream>
-
+#include "CycList.h"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    CycList<int> test;
+    int* x = test.getHead();
+
+    std::cout << x << std::endl;
     return 0;
 }
