@@ -1,9 +1,16 @@
 #include <iostream>
 #include "CycList.h"
+
 int main() {
     CycList<int> test;
-    int* x = test.getHead();
+    test.push(20);
+    test.push(10);
+    test.push(20);
+    test.push(1111);
 
-    std::cout << x << std::endl;
+
+    //int x = test.getHead();
+
+    std::cout << test <<std::endl;
     return 0;
 }
