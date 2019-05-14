@@ -2,6 +2,7 @@
 #include "CycList.h"
 #include "Record.h"
 #include <string>
+#include "Roullete.h"
 
 int main() {
     CycList<Record> test;
