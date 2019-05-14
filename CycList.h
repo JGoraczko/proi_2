@@ -1,10 +1,8 @@
-//
-// Created by jakub on 14.05.19.
-//
 
+#include <iostream>
 #ifndef PROI_2_CYCLIST_H
 #define PROI_2_CYCLIST_H
-#include <iostream>
+
 
 template <typename T>
 class Node

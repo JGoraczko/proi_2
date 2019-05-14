@@ -1,15 +1,18 @@
 #include <iostream>
 #include "CycList.h"
+#include "Record.h"
+#include <string>
 
 int main() {
-    CycList<int> test;
-    test.push(20);
-    test.push(10);
-    test.push(20);
-    test.push(1111);
+    CycList<Record> test;
+    Record data1(1, "12", 5, 0, 200);
+    Record data2(2, "12", 3, 14, 200);
+    test.push(data1);
+
+    test.push(data2);
 
 
-    //int x = test.getHead();
+
 
     std::cout << test <<std::endl;
     return 0;
