@@ -24,8 +24,8 @@ int main() {
 
 
     Roullete roullete(10000);
-    for(int i = 0; i< 100; ++i)
-        roullete.play(bet1, 100);
+    for(int i = 0; i< 10000; ++i)
+       roullete.play(bet1, 100);
     roullete.displayHistory();
     return 0;
 }
