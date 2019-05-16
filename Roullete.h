@@ -10,12 +10,14 @@
 
 
 class Roullete{
+public:
     int turn_nr;
     CycList<Record> history;
     int bank;
 public:
     Roullete(int starting_bank);
-    void play(int bet, int amount);
+    void play(CycList<int> bet, int amount);
+    void displayHistory();
 
 };
 

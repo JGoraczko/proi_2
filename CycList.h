@@ -15,14 +15,16 @@ public:
 
 template <typename T>
 class CycList {
-
+    int size;
     Node<T>* head;
 public:
     CycList();
+    CycList(CycList&);
     ~CycList();
     void push(T data);
     void pop();
-    T getHead();
+    T getData();
+    int getSize();
     template <typename U>
     friend std::ostream& operator<<(std::ostream &stream, const CycList<U> &list);
 };
@@ -31,18 +33,19 @@ public:
 template <typename T>
 CycList<T>::CycList(){
     head = nullptr;
+    size = 0;
 }
 
 template <typename T>
-T CycList<T>::getHead() {
+T CycList<T>::getData() {
 
-        return head->data;
+        return head->next->data;
 }
 
 template <typename T>
 void CycList<T>::push(T data) {
     Node<T>* n_node =  new Node<T>(data);
-    n_node->data = data;
+    ++size;
     if(head == nullptr)
     {
         head = n_node;
@@ -57,18 +60,17 @@ void CycList<T>::push(T data) {
 
 template <typename T>
 void CycList<T>::pop() {
-    if(head == nullptr)
-        return;
-    else if(head->next == head)
+    if(head != nullptr)
     {
-        delete head;
-        head = nullptr;
-    }
-    else
-    {
-        Node<T> *to_pop = head->next;
-        head->next = to_pop->next;
-        delete to_pop;
+        if (head->next == head) {
+            delete head;
+            head = nullptr;
+        } else {
+            Node<T> *to_pop = head->next;
+            head->next = to_pop->next;
+            delete to_pop;
+        }
+        --size;
     }
 }
 
@@ -79,6 +81,27 @@ CycList<T>::~CycList() {
 }
 
 template <typename T>
+int CycList<T>::getSize() {
+    return  size;
+}
+
+template <typename T>
+CycList<T>::CycList(CycList& list) {
+    head = nullptr;
+    size = 0;
+    if(list.head != nullptr)
+    {
+        Node<T>* temp = list.head;
+        do
+        {
+            temp = temp->next;
+            push(temp->data);
+        } while (temp != list.head);
+    }
+}
+
+
+template <typename T>
 std::ostream& operator<<(std::ostream &stream, const CycList<T> &list){
     if(list.head == nullptr)
         return stream;
@@ -86,7 +109,10 @@ std::ostream& operator<<(std::ostream &stream, const CycList<T> &list){
     do
     {
       temp = temp->next;
-      stream << temp->data << "\n";
+      if(typeid(T) == typeid(int))
+          stream << temp->data << ", ";
+      else
+        stream << temp->data << "\n";
     } while (temp != list.head);
 
     return stream;

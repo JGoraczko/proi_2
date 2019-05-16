@@ -3,7 +3,6 @@
 #include <iostream>
 #include "CycList.h"
 #include "Record.h"
-#include <string>
 #include<chrono>
 #include<random>
 
@@ -12,16 +11,26 @@ std::default_random_engine generator(seed);
 
 
 Roullete::Roullete(int starting_bank):
-bank(starting_bank)
+bank(starting_bank), turn_nr(0)
 {}
 
-void Roullete::play(int bet, int amount){
+void Roullete::play(CycList<int> bet, int amount){
     std::uniform_int_distribution<int> random_nr(0, 36);
+    ++turn_nr;
     int nr_drawn = random_nr(generator);
-    if(bet <= 36 && bet >= 1)
-        if(bet == nr_drawn)
-        {
+    int reward = 0;
+    for(int i = 0; i < bet.getSize(); ++i) {
+        int temp = bet.getData();
+        if (temp == nr_drawn)
+            reward = reward + (amount * 36 / bet.getSize());
+        bet.pop();
+        bet.push(temp);
+    }
+    bank = bank - amount + reward;
+    Record temp(turn_nr, bet, nr_drawn, reward, bank);
+    history.push(temp);
+}
 
-        }
-
+void Roullete::displayHistory() {
+    std::cout << history ;
 }
