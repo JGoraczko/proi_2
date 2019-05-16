@@ -14,11 +14,12 @@ class Record{
     int bank;
 
 public:
-    Record() = default;
     Record(Record&) = default;
     Record(int, CycList<int>, int, int, int);
     ~Record() = default;
     friend std::ostream& operator<<(std::ostream&, const Record&);
+    int getTurn();
+    CycList<int> getBet();
 };
 
 

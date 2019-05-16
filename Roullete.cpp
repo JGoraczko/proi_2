@@ -34,3 +34,27 @@ void Roullete::play(CycList<int> bet, int amount){
 void Roullete::displayHistory() {
     std::cout << history ;
 }
+ int Roullete::getBank() {
+    return bank;
+}
+
+CycList<Record> Roullete::getHistory(){
+    return  history;
+}
+
+void Roullete::playWithUserInput() {
+    while(bank > 0)
+    {
+        std::cout << "Na jaką liczbę z przedziału (1, 36) chcesz postawić?" << std::endl;
+        int number;
+        std::cin >> number;
+        CycList<int> bet;
+        bet.push(number);
+        std::cout << "Ile pieniędzy chcesz postawić?" << std::endl;
+        int amount;
+        std::cin >> amount;
+        play(bet, amount);
+        displayHistory();
+    }
+
+}
